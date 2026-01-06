@@ -2,7 +2,34 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { services } from '@/lib/services';
+import { FaBaby, FaUserFriends, FaHeartbeat } from 'react-icons/fa';
+
+const services = [
+  {
+    id: 'baby-care',
+    title: 'Baby Care',
+    description: 'Professional and caring babysitting services for your little ones',
+    icon: FaBaby,
+    color: 'bg-purple-500',
+    charge: 500,
+  },
+  {
+    id: 'elderly-care',
+    title: 'Elderly Care',
+    description: 'Compassionate care services for elderly family members',
+    icon: FaUserFriends,
+    color: 'bg-pink-500',
+    charge: 600,
+  },
+  {
+    id: 'sick-care',
+    title: 'Sick People Care',
+    description: 'Specialized care for sick or recovering family members',
+    icon: FaHeartbeat,
+    color: 'bg-red-500',
+    charge: 700,
+  },
+];
 
 export default function ServicesPage() {
   return (
@@ -19,7 +46,7 @@ export default function ServicesPage() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (

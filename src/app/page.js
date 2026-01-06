@@ -2,10 +2,33 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FaCheckCircle, FaStar } from 'react-icons/fa';
+import { FaBaby, FaUserFriends, FaHeartbeat, FaCheckCircle, FaStar } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import BannerSlider from '@/components/BannerSlider';
-import { services } from '@/lib/services';
+
+const services = [
+  {
+    id: 'baby-care',
+    title: 'Baby Care',
+    description: 'Professional and caring babysitting services for your little ones',
+    icon: FaBaby,
+    color: 'bg-purple-500',
+  },
+  {
+    id: 'elderly-care',
+    title: 'Elderly Care',
+    description: 'Compassionate care services for elderly family members',
+    icon: FaUserFriends,
+    color: 'bg-pink-500',
+  },
+  {
+    id: 'sick-care',
+    title: 'Sick People Care',
+    description: 'Specialized care for sick or recovering family members',
+    icon: FaHeartbeat,
+    color: 'bg-red-500',
+  },
+];
 
 const testimonials = [
   {
@@ -109,8 +132,8 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {services.slice(0, 8).map((service, index) => {
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((service, index) => {
               const Icon = service.icon;
               return (
                 <motion.div
@@ -135,14 +158,6 @@ export default function Home() {
                 </motion.div>
               );
             })}
-          </div>
-          <div className="text-center mt-8">
-            <Link
-              href="/services"
-              className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all font-semibold shadow-md"
-            >
-              View All {services.length} Services
-            </Link>
           </div>
         </div>
       </section>

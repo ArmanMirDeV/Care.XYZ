@@ -1,11 +1,60 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaCheckCircle, FaDollarSign } from 'react-icons/fa';
+import { FaBaby, FaUserFriends, FaHeartbeat, FaCheckCircle, FaDollarSign } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { serviceDetails } from '@/lib/services';
+
+const serviceDetails = {
+  'baby-care': {
+    id: 'baby-care',
+    title: 'Baby Care Service',
+    description: 'Professional and caring babysitting services for your little ones. Our trained caregivers provide safe, nurturing environments for children of all ages.',
+    icon: FaBaby,
+    color: 'bg-purple-500',
+    features: [
+      'Experienced and certified babysitters',
+      'Age-appropriate activities and care',
+      'Meal preparation and feeding assistance',
+      'Safe and secure environment',
+      'Flexible scheduling options',
+    ],
+    charge: 500, // per hour
+  },
+  'elderly-care': {
+    id: 'elderly-care',
+    title: 'Elderly Care Service',
+    description: 'Compassionate care services for elderly family members. Our caregivers provide assistance with daily activities, medication management, and companionship.',
+    icon: FaUserFriends,
+    color: 'bg-pink-500',
+    features: [
+      'Trained elderly care specialists',
+      'Medication management',
+      'Assistance with daily activities',
+      'Companionship and emotional support',
+      'Health monitoring',
+    ],
+    charge: 600, // per hour
+  },
+  'sick-care': {
+    id: 'sick-care',
+    title: 'Sick People Care Service',
+    description: 'Specialized care for sick or recovering family members. Our caregivers provide medical support, comfort, and assistance during recovery periods.',
+    icon: FaHeartbeat,
+    color: 'bg-red-500',
+    features: [
+      'Medical care assistance',
+      'Medication administration',
+      'Post-surgery care',
+      'Health monitoring and reporting',
+      'Comfort and emotional support',
+      'Health monitoring and reporting',
+      'Comfort and emotional support',
+    ],
+    charge: 700, // per hour
+  },
+};
 
 export default function ServiceDetailContent({ serviceId }) {
   const router = useRouter();

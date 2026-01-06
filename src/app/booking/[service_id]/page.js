@@ -20,7 +20,11 @@ const districts = {
   'Mymensingh': ['Mymensingh', 'Jamalpur', 'Netrokona'],
 };
 
-import { serviceCharges } from '@/lib/services';
+const serviceCharges = {
+  'baby-care': 500,
+  'elderly-care': 600,
+  'sick-care': 700,
+};
 
 export default function BookingPage() {
   return (

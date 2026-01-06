@@ -4,7 +4,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { sendInvoiceEmail } from '@/lib/email';
 
-import { serviceNames } from '@/lib/services';
+const serviceNames = {
+  'baby-care': 'Baby Care',
+  'elderly-care': 'Elderly Care',
+  'sick-care': 'Sick People Care',
+};
 
 export async function GET(request) {
   try {
