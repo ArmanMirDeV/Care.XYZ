@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaIdCard, FaPhone, FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 import toast from 'react-hot-toast';
 
-export default function RegisterPage() {
+function RegisterForm() {
   const [formData, setFormData] = useState({
     nid: '',
     name: '',
@@ -19,6 +20,8 @@ export default function RegisterPage() {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams?.get('redirect') || '/my-bookings';
 
   const validatePassword = (password) => {
     const errors = [];
@@ -64,7 +67,7 @@ export default function RegisterPage() {
       if (res.ok) {
         toast.success('Registration successful! Redirecting...');
         setTimeout(() => {
-          router.push('/my-bookings');
+          router.push(redirect);
         }, 1500);
       } else {
         toast.error(data.message || 'Registration failed');
@@ -83,7 +86,7 @@ export default function RegisterPage() {
     setIsLoading(true);
     try {
       const { signIn } = await import('next-auth/react');
-      await signIn('google', { callbackUrl: '/my-bookings' });
+      await signIn('google', { callbackUrl: redirect });
     } catch (error) {
       toast.error('Failed to sign in with Google');
       setIsLoading(false);
@@ -91,19 +94,31 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg"
-      >
-        <div>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg"
+          >
+        <div className="flex flex-col items-center">
+          <Link href="/" className="flex items-center space-x-2 mb-6">
+            <Image 
+              src="/care-xyz-logo.png" 
+              alt="Care.xyz Logo" 
+              width={50} 
+              height={50} 
+              className="h-12 w-auto object-contain"
+            />
+            <span className="text-3xl font-bold text-purple-600">Care.xyz</span>
+          </Link>
           <h2 className="text-center text-3xl font-extrabold text-gray-900">
             Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link href="/login" className="font-medium text-purple-600 hover:text-pink-500">
               sign in to existing account
             </Link>
           </p>
@@ -123,7 +138,7 @@ export default function RegisterPage() {
                 required
                 value={formData.nid}
                 onChange={(e) => setFormData({ ...formData, nid: e.target.value })}
-                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                 placeholder="Enter your NID number"
               />
             </div>
@@ -142,7 +157,7 @@ export default function RegisterPage() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                 placeholder="Enter your full name"
               />
             </div>
@@ -161,7 +176,7 @@ export default function RegisterPage() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                 placeholder="Enter your email"
               />
             </div>
@@ -181,7 +196,7 @@ export default function RegisterPage() {
                 required
                 value={formData.contact}
                 onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                 placeholder="Enter your contact number"
               />
             </div>
@@ -200,7 +215,7 @@ export default function RegisterPage() {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                 placeholder="Enter your password"
               />
             </div>
@@ -223,7 +238,7 @@ export default function RegisterPage() {
                 required
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                 placeholder="Confirm your password"
               />
             </div>
@@ -236,7 +251,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 transition-all font-semibold shadow-md"
             >
               {isLoading ? 'Creating account...' : 'Create account'}
             </button>
@@ -262,8 +277,22 @@ export default function RegisterPage() {
             </button>
           </div>
         </form>
-      </motion.div>
+          </motion.div>
+        </div>
+      </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+      </div>
+    }>
+      <RegisterForm />
+    </Suspense>
   );
 }
 

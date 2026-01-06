@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaLock, FaGoogle } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 import toast from 'react-hot-toast';
 
 function LoginForm() {
@@ -13,7 +14,9 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams?.get('redirect') || '/my-bookings';
+  const redirectParam = searchParams?.get('redirect');
+  const callbackUrlParam = searchParams?.get('callbackUrl');
+  const redirect = redirectParam || callbackUrlParam || '/my-bookings';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,19 +54,31 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg"
-      >
-        <div>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg"
+          >
+        <div className="flex flex-col items-center">
+          <Link href="/" className="flex items-center space-x-2 mb-6">
+            <Image 
+              src="/care-xyz-logo.png" 
+              alt="Care.xyz Logo" 
+              width={50} 
+              height={50} 
+              className="h-12 w-auto object-contain"
+            />
+            <span className="text-3xl font-bold text-purple-600">Care.xyz</span>
+          </Link>
           <h2 className="text-center text-3xl font-extrabold text-gray-900">
             Sign in to Care.xyz
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link href="/register" className="font-medium text-purple-600 hover:text-pink-500">
               create a new account
             </Link>
           </p>
@@ -84,7 +99,7 @@ function LoginForm() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                   placeholder="Enter your email"
                 />
               </div>
@@ -103,7 +118,7 @@ function LoginForm() {
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="pl-10 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-purple-500 focus:border-pink-500"
                   placeholder="Enter your password"
                 />
               </div>
@@ -114,7 +129,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 transition-all shadow-md font-semibold"
             >
               {isLoading ? 'Signing in...' : 'Sign in'}
             </button>
@@ -140,7 +155,9 @@ function LoginForm() {
             </button>
           </div>
         </form>
-      </motion.div>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -149,7 +166,7 @@ export default function LoginPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
       </div>
     }>
       <LoginForm />

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { 
   FaHome, 
   FaUser, 
@@ -34,7 +35,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-blue-600">Care.xyz</span>
+            <Image 
+              src="/care-xyz-logo.png" 
+              alt="Care.xyz Logo" 
+              width={40} 
+              height={40} 
+              className="h-10 w-auto object-contain"
+              priority
+            />
+            <span className="text-2xl font-bold text-purple-600">Care.xyz</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,8 +57,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                      ? 'text-purple-600 bg-purple-50'
+                      : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -72,14 +81,14 @@ export default function Navbar() {
               <div className="flex items-center space-x-3">
                 <Link
                   href="/login"
-                  className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+                  className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-purple-600 transition-colors"
                 >
                   <FaSignInAlt className="w-4 h-4" />
                   <span>Login</span>
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-md hover:from-purple-700 hover:to-pink-600 transition-all font-semibold"
                 >
                   Sign Up
                 </Link>
@@ -90,7 +99,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-purple-600 hover:bg-gray-100"
           >
             {isOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
           </button>
@@ -117,7 +126,7 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium ${
                       isActive
-                        ? 'bg-blue-50 text-blue-600'
+                        ? 'bg-purple-50 text-purple-600'
                         : 'text-gray-700 hover:bg-gray-50'
                     }`}
                   >
@@ -143,7 +152,7 @@ export default function Navbar() {
                     <Link
                       href="/login"
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50"
+                      className="flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-gray-50"
                     >
                       <FaSignInAlt className="w-5 h-5" />
                       <span>Login</span>
@@ -151,7 +160,7 @@ export default function Navbar() {
                     <Link
                       href="/register"
                       onClick={() => setIsOpen(false)}
-                      className="block mt-2 px-3 py-2 bg-blue-600 text-white rounded-md text-center hover:bg-blue-700"
+                      className="block mt-2 px-3 py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-md text-center hover:from-purple-700 hover:to-pink-600 font-semibold"
                     >
                       Sign Up
                     </Link>

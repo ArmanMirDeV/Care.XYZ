@@ -24,11 +24,11 @@ export async function sendInvoiceEmail(userEmail, bookingData) {
           <style>
             body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
             .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #2563eb; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+            .header { background: linear-gradient(to right, #9333ea, #db2777); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
             .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
             .invoice-details { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
             .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e5e7eb; }
-            .total { font-size: 20px; font-weight: bold; color: #2563eb; margin-top: 20px; }
+            .total { font-size: 20px; font-weight: bold; color: #9333ea; margin-top: 20px; }
             .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
           </style>
         </head>

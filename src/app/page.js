@@ -2,33 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FaBaby, FaUserFriends, FaHeartbeat, FaCheckCircle, FaStar } from 'react-icons/fa';
+import { FaCheckCircle, FaStar } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import BannerSlider from '@/components/BannerSlider';
-
-const services = [
-  {
-    id: 'baby-care',
-    title: 'Baby Care',
-    description: 'Professional and caring babysitting services for your little ones',
-    icon: FaBaby,
-    color: 'bg-blue-500',
-  },
-  {
-    id: 'elderly-care',
-    title: 'Elderly Care',
-    description: 'Compassionate care services for elderly family members',
-    icon: FaUserFriends,
-    color: 'bg-green-500',
-  },
-  {
-    id: 'sick-care',
-    title: 'Sick People Care',
-    description: 'Specialized care for sick or recovering family members',
-    icon: FaHeartbeat,
-    color: 'bg-red-500',
-  },
-];
+import { services } from '@/lib/services';
 
 const testimonials = [
   {
@@ -84,7 +61,7 @@ export default function Home() {
                 className="bg-white p-6 rounded-lg shadow-md"
               >
                 <div className="text-4xl mb-2">{stat.icon}</div>
-                <div className="text-3xl font-bold text-blue-600 mb-1">{stat.value}+</div>
+                <div className="text-3xl font-bold text-purple-600 mb-1">{stat.value}+</div>
                 <div className="text-gray-600">{stat.label}</div>
               </motion.div>
             ))}
@@ -132,8 +109,8 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((service, index) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {services.slice(0, 8).map((service, index) => {
               const Icon = service.icon;
               return (
                 <motion.div
@@ -151,13 +128,21 @@ export default function Home() {
                   <p className="text-gray-600 mb-6">{service.description}</p>
                   <Link
                     href={`/service/${service.id}`}
-                    className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all"
                   >
                     Learn More
                   </Link>
                 </motion.div>
               );
             })}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/services"
+              className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all font-semibold shadow-md"
+            >
+              View All {services.length} Services
+            </Link>
           </div>
         </div>
       </section>
@@ -191,7 +176,7 @@ export default function Home() {
                     <FaStar key={i} className="text-yellow-400 w-5 h-5" />
                   ))}
                 </div>
-                <p className="text-gray-600 mb-4 italic">"{testimonial.text}"</p>
+                <p className="text-gray-600 mb-4 italic">&quot;{testimonial.text}&quot;</p>
                 <p className="font-semibold text-gray-900">- {testimonial.name}</p>
               </motion.div>
             ))}
@@ -200,7 +185,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-purple-700 via-purple-600 to-pink-500 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -210,12 +195,12 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
+            <p className="text-xl mb-8 text-purple-100">
               Book a care service today and experience the difference
             </p>
             <Link
               href="/services"
-              className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors shadow-lg"
+              className="inline-block px-8 py-4 bg-white text-purple-600 rounded-lg font-semibold text-lg hover:bg-purple-50 transition-colors shadow-lg"
             >
               Book Now
             </Link>

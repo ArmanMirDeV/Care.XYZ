@@ -126,7 +126,7 @@ export default function BannerSlider() {
 
   return (
     <section 
-      className="relative h-[600px] md:h-[700px] overflow-hidden"
+      className="relative h-[600px] md:h-[700px] overflow-hidden max-w-7xl mx-auto rounded-lg shadow-lg "
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
@@ -169,15 +169,15 @@ export default function BannerSlider() {
                   <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
                     {slides[currentIndex].title}
                   </h1>
-                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-6 text-blue-200">
+                  <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold mb-6 text-pink-200">
                     {slides[currentIndex].subtitle}
                   </h2>
-                  <p className="text-lg md:text-xl lg:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+                  <p className="text-lg md:text-xl lg:text-2xl mb-8 text-purple-50 max-w-3xl mx-auto">
                     {slides[currentIndex].description}
                   </p>
                   <Link
                     href="/services"
-                    className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors shadow-lg"
+                    className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg font-semibold text-lg hover:from-purple-700 hover:to-pink-600 transition-all shadow-lg"
                   >
                     Book a Service
                   </Link>

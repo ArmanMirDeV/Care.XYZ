@@ -6,11 +6,12 @@ import { motion } from 'framer-motion';
 import { FaClock, FaCheckCircle, FaTimesCircle, FaEye, FaTrash } from 'react-icons/fa';
 import { formatDate, formatCurrency } from '@/lib/utils';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 const statusColors = {
   Pending: 'bg-yellow-100 text-yellow-800',
-  Confirmed: 'bg-blue-100 text-blue-800',
-  Completed: 'bg-green-100 text-green-800',
+  Confirmed: 'bg-purple-100 text-purple-800',
+  Completed: 'bg-pink-100 text-pink-800',
   Cancelled: 'bg-red-100 text-red-800',
 };
 
@@ -33,11 +34,16 @@ function MyBookingsContent() {
   const fetchBookings = async () => {
     try {
       const res = await fetch('/api/bookings');
+      if (!res.ok) {
+        setBookings([]);
+        return;
+      }
       const data = await res.json();
-      if (res.ok) {
-        setBookings(data.bookings || []);
+      if (data && data.bookings) {
+        setBookings(data.bookings);
       }
     } catch (error) {
+      console.error('Fetch bookings error:', error);
       toast.error('Failed to load bookings');
     } finally {
       setIsLoading(false);
@@ -68,7 +74,7 @@ function MyBookingsContent() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
       </div>
     );
   }
@@ -80,13 +86,13 @@ function MyBookingsContent() {
 
         {bookings.length === 0 ? (
           <div className="bg-white rounded-lg shadow-lg p-12 text-center">
-            <p className="text-gray-600 text-lg mb-4">You don't have any bookings yet.</p>
-            <a
+          <p className="text-gray-600 text-lg mb-4">You don&apos;t have any bookings yet.</p>
+            <Link
               href="/services"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all shadow-md"
             >
               Book a Service
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6">
@@ -122,7 +128,7 @@ function MyBookingsContent() {
                       </div>
                       <div className="flex items-center text-gray-600">
                         <span className="font-semibold text-gray-900">Total Cost: </span>
-                        <span className="ml-2 text-blue-600 font-bold">
+                        <span className="ml-2 text-purple-600 font-bold">
                           {formatCurrency(booking.totalCost)}
                         </span>
                       </div>

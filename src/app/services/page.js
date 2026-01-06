@@ -2,34 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FaBaby, FaUserFriends, FaHeartbeat } from 'react-icons/fa';
-
-const services = [
-  {
-    id: 'baby-care',
-    title: 'Baby Care',
-    description: 'Professional and caring babysitting services for your little ones',
-    icon: FaBaby,
-    color: 'bg-blue-500',
-    charge: 500,
-  },
-  {
-    id: 'elderly-care',
-    title: 'Elderly Care',
-    description: 'Compassionate care services for elderly family members',
-    icon: FaUserFriends,
-    color: 'bg-green-500',
-    charge: 600,
-  },
-  {
-    id: 'sick-care',
-    title: 'Sick People Care',
-    description: 'Specialized care for sick or recovering family members',
-    icon: FaHeartbeat,
-    color: 'bg-red-500',
-    charge: 700,
-  },
-];
+import { services } from '@/lib/services';
 
 export default function ServicesPage() {
   return (
@@ -46,7 +19,7 @@ export default function ServicesPage() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
@@ -63,12 +36,12 @@ export default function ServicesPage() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-6">{service.description}</p>
                 <div className="mb-6">
-                  <span className="text-2xl font-bold text-blue-600">{service.charge} BDT</span>
+                  <span className="text-2xl font-bold text-purple-600">{service.charge} BDT</span>
                   <span className="text-gray-600 ml-2">/ hour</span>
                 </div>
                 <Link
                   href={`/service/${service.id}`}
-                  className="block text-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="block text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all shadow-md"
                 >
                   View Details
                 </Link>

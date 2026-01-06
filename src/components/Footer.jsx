@@ -1,14 +1,24 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gray-900 text-gray-300 max">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">Care.xyz</h3>
+            <Link href="/" className="flex items-center space-x-2 mb-4">
+              <Image 
+                src="/care-xyz-logo.png" 
+                alt="Care.xyz Logo" 
+                width={40} 
+                height={40} 
+                className="h-10 w-auto object-contain brightness-110"
+              />
+              <span className="text-2xl font-bold text-white">Care.xyz</span>
+            </Link>
             <p className="text-sm">
               Providing reliable and trusted care services for children, elderly, and family members. 
               Making caregiving easy, secure, and accessible for everyone.
@@ -20,22 +30,22 @@ export default function Footer() {
             <h4 className="text-white text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-pink-400 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-white transition-colors">
+                <Link href="/services" className="hover:text-pink-400 transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-pink-400 transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <Link href="/contact" className="hover:text-pink-400 transition-colors">
                   Contact
                 </Link>
               </li>
@@ -47,17 +57,17 @@ export default function Footer() {
             <h4 className="text-white text-lg font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/services/baby-care" className="hover:text-white transition-colors">
+                <Link href="/services/baby-care" className="hover:text-pink-400 transition-colors">
                   Baby Care
                 </Link>
               </li>
               <li>
-                <Link href="/services/elderly-care" className="hover:text-white transition-colors">
+                <Link href="/services/elderly-care" className="hover:text-pink-400 transition-colors">
                   Elderly Care
                 </Link>
               </li>
               <li>
-                <Link href="/services/sick-care" className="hover:text-white transition-colors">
+                <Link href="/services/sick-care" className="hover:text-pink-400 transition-colors">
                   Sick People Care
                 </Link>
               </li>
@@ -82,16 +92,16 @@ export default function Footer() {
               </li>
             </ul>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-pink-400 transition-colors">
                 <FaFacebook className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-pink-400 transition-colors">
                 <FaTwitter className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-pink-400 transition-colors">
                 <FaLinkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="hover:text-white transition-colors">
+              <a href="#" className="hover:text-pink-400 transition-colors">
                 <FaInstagram className="w-5 h-5" />
               </a>
             </div>

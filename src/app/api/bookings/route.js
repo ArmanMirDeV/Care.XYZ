@@ -1,14 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 import { sendInvoiceEmail } from '@/lib/email';
 
-const serviceNames = {
-  'baby-care': 'Baby Care',
-  'elderly-care': 'Elderly Care',
-  'sick-care': 'Sick People Care',
-};
+import { serviceNames } from '@/lib/services';
 
 export async function GET(request) {
   try {
@@ -60,6 +56,7 @@ export async function POST(request) {
       address,
       totalCost,
       serviceCharge,
+      paymentMethod,
     } = body;
 
     if (!serviceId || !duration || !division || !district || !address) {
@@ -85,7 +82,8 @@ export async function POST(request) {
       address,
       totalCost: parseFloat(totalCost),
       serviceCharge: parseFloat(serviceCharge),
-      status: 'Pending',
+      paymentMethod: paymentMethod || 'Cash on Delivery',
+      status: 'Pending', // Booking starts as Pending, will be confirmed by admin
       createdAt: new Date(),
       updatedAt: new Date(),
     };
