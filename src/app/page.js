@@ -1,65 +1,227 @@
-import Image from "next/image";
+'use client';
+
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { FaBaby, FaUserFriends, FaHeartbeat, FaCheckCircle, FaStar } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import BannerSlider from '@/components/BannerSlider';
+
+const services = [
+  {
+    id: 'baby-care',
+    title: 'Baby Care',
+    description: 'Professional and caring babysitting services for your little ones',
+    icon: FaBaby,
+    color: 'bg-blue-500',
+  },
+  {
+    id: 'elderly-care',
+    title: 'Elderly Care',
+    description: 'Compassionate care services for elderly family members',
+    icon: FaUserFriends,
+    color: 'bg-green-500',
+  },
+  {
+    id: 'sick-care',
+    title: 'Sick People Care',
+    description: 'Specialized care for sick or recovering family members',
+    icon: FaHeartbeat,
+    color: 'bg-red-500',
+  },
+];
+
+const testimonials = [
+  {
+    name: 'Sarah Ahmed',
+    text: 'Care.xyz helped me find an amazing caregiver for my mother. Highly recommended!',
+    rating: 5,
+  },
+  {
+    name: 'Mohammad Rahman',
+    text: 'The booking process was so easy and the service quality is excellent.',
+    rating: 5,
+  },
+  {
+    name: 'Fatima Khan',
+    text: 'Found a perfect babysitter for my kids. The platform is trustworthy and reliable.',
+    rating: 5,
+  },
+];
 
 export default function Home() {
+  const [stats, setStats] = useState({ bookings: 0, users: 0, services: 0 });
+
+  useEffect(() => {
+    // Fetch stats from API
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => setStats(data))
+      .catch(() => {
+        // Default stats if API fails
+        setStats({ bookings: 1250, users: 850, services: 3 });
+      });
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="bg-white">
+      {/* Hero Banner Slider */}
+      <BannerSlider />
+
+      {/* Stats Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              { label: 'Total Bookings', value: stats.bookings, icon: '📋' },
+              { label: 'Happy Users', value: stats.users, icon: '👥' },
+              { label: 'Services', value: stats.services, icon: '🏥' },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white p-6 rounded-lg shadow-md"
+              >
+                <div className="text-4xl mb-2">{stat.icon}</div>
+                <div className="text-3xl font-bold text-blue-600 mb-1">{stat.value}+</div>
+                <div className="text-gray-600">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </section>
+
+      {/* About Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              About Care.xyz
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Care.xyz is a web application that provides reliable and trusted care services 
+              for children, elderly, and other family members. Our platform allows users to 
+              easily find and hire caretakers for different purposes such as babysitting, 
+              elderly care, or special care at home. We make caregiving easy, secure, and 
+              accessible for everyone.
+            </p>
+          </motion.div>
         </div>
-      </main>
+      </section>
+
+      {/* Services Overview */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Our Services
+            </h2>
+            <p className="text-lg text-gray-600">
+              Choose from our range of professional care services
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <div className={`${service.color} w-16 h-16 rounded-full flex items-center justify-center mb-4`}>
+                    <Icon className="text-white text-2xl" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <Link
+                    href={`/service/${service.id}`}
+                    className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Learn More
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              What Our Customers Say
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white p-6 rounded-lg shadow-md border border-gray-200"
+              >
+                <div className="flex items-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <FaStar key={i} className="text-yellow-400 w-5 h-5" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4 italic">"{testimonial.text}"</p>
+                <p className="font-semibold text-gray-900">- {testimonial.name}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-blue-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Get Started?
+            </h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Book a care service today and experience the difference
+            </p>
+            <Link
+              href="/services"
+              className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors shadow-lg"
+            >
+              Book Now
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
